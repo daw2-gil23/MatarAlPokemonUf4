@@ -11241,13 +11241,13 @@ class User {
 }
 class Perfil {
   // Mapping de propiedades de la tabla perfiles
-  constructor(id = null, created_at = null, nombre = null, apellidos = null, user_id = null, estado = null, avatar = null, nick = null) {
+  constructor(id = null, created_at = null, nombre = null, apellidos = null, user_id = null, rol = null, avatar = null, nick = null) {
     this.id = id;
     this.created_at = created_at;
     this.nombre = nombre;
     this.apellidos = apellidos;
     this.user_id = user_id;
-    this.estado = estado;
+    this.rol = rol;
     this.avatar = avatar;
     this.nick = nick;
   }
@@ -11257,8 +11257,8 @@ class Perfil {
     if (error) {
       throw new Error(error.message);
     }
-    return perfiles.map(({ id, created_at, nombre, apellidos, user_id, estado, avatar, nick }) => {
-      return new Perfil(id, created_at, nombre, apellidos, user_id, estado, avatar, nick);
+    return perfiles.map(({ id, created_at, nombre, apellidos, user_id, rol, avatar, nick }) => {
+      return new Perfil(id, created_at, nombre, apellidos, user_id, rol, avatar, nick);
     });
   }
   // leer registro por id (método static que se puede leer desde la clase sin necesidad de crear una instancia)
@@ -11267,14 +11267,14 @@ class Perfil {
     if (error) {
       throw new Error(error.message);
     }
-    return new Perfil(perfil.id, perfil.created_at, perfil.nombre, perfil.apellidos, perfil.user_id, perfil.estado, perfil.avatar, perfil.nick);
+    return new Perfil(perfil.id, perfil.created_at, perfil.nombre, perfil.apellidos, perfil.user_id, perfil.rol, perfil.avatar, perfil.nick);
   }
   static async getByUserId(id) {
     const { data: perfil, error } = await supabase.from("perfiles").select("*").eq("user_id", id).single();
     if (error) {
       throw new Error(error.message);
     }
-    return new Perfil(perfil.id, perfil.created_at, perfil.nombre, perfil.apellidos, perfil.user_id, perfil.estado, perfil.avatar, perfil.nick);
+    return new Perfil(perfil.id, perfil.created_at, perfil.nombre, perfil.apellidos, perfil.user_id, perfil.rol, perfil.avatar, perfil.nick);
   }
   // crear registro (método static que se puede leer desde la clase sin necesidad de crear una instancia)
   static async create(perfilData) {
@@ -11329,14 +11329,14 @@ const menuSuperior = {
       `,
       registrado: `
       <li class="nav-item">
-        <a class="nav-link" href="#/proyectos">Proyectos</a>
+        <a class="nav-link" href="/MatarAlPokemonUf4/#/perfiles">Perfiles</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#/recursos">Recursos</a>
+        <a class="nav-link" href="/MatarAlPokemonUf4/#/partidas">Partidas</a>
       </li>
       <li><hr /></li>
       <li class="nav-item">
-        <a class="nav-link" href="#/adminUsuarios">Admin</a>
+        <a class="nav-link" href="/MatarAlPokemonUf4/#/pokemons">Pokemons</a>
       </li>
       `,
       alumno: `
@@ -11380,7 +11380,7 @@ const menuSuperior = {
       const rol = perfilLogueado.rol;
       document.querySelector("#menuSuperior").innerHTML = items[rol];
     } else {
-      document.querySelector("#menuSuperior").innerHTML = items["anonimo"];
+      document.querySelector("#menuSuperior").innerHTML = items.anonimo;
     }
   }
 };
@@ -11413,11 +11413,11 @@ const menuUsuario = {
             anónimo
           </li>
           <li>
-            <a class="liLogin dropdown-item" href="#/login">Login</a>
+            <a class="liLogin dropdown-item" href="/MatarAlPokemonUf4/#/login">Login</a>
           </li>
           
           <li>
-            <a class="liRegistro dropdown-item" href="#/registro">Registrate</a>
+            <a class="liRegistro dropdown-item" href="/MatarAlPokemonUf4/#/registro">Registrate</a>
           </li>
         </ul>
       </li>
@@ -11430,10 +11430,10 @@ const menuUsuario = {
             anónimo
         </li>
         <li>
-        <a class="liLogin dropdown-item" href="#/login">Login</a>
+        <a class="liLogin dropdown-item" href="/MatarAlPokemonUf4/#/login">Login</a>
         </li>
         <li>
-          <a class="liRegistro dropdown-item" href="#/registro">Registrate</a>
+          <a class="liRegistro dropdown-item" href="/MatarAlPokemonUf4/#/registro">Registrate</a>
         </li>
         
       `,
@@ -11447,7 +11447,7 @@ const menuUsuario = {
           data-bs-toggle="modal"
           data-bs-target="#editar"
           class="dropdown-item"
-          href="#/editarPerfil"
+          href="/MatarAlPokemonUf4/#/editarPerfil"
           >Editar perfil</a
         >
       </li>      
@@ -11541,7 +11541,7 @@ const menuUsuario = {
     if (rol !== "anonimo") {
       const imgAvatar = perfilLogueado.avatar;
       document.querySelector("#imgAvatar").src = imgAvatar;
-      document.querySelector("#emailUsuarioLogueado").innerHTML = perfilLogueado.email;
+      document.querySelector("#emailUsuarioLogueado").innerHTML = perfilLogueado.nick;
       document.querySelector("#rolUsuarioLogueado").innerHTML = perfilLogueado.rol;
       document.querySelector(".liLogout").addEventListener("click", async (e) => {
         e.preventDefault();
@@ -11632,7 +11632,7 @@ const header = {
       <span class=""></span>
       Vanilla Games
     </a>
-    
+
     <button
       class="navbar-toggler ms-auto
       "
@@ -11643,16 +11643,18 @@ const header = {
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
+    
     <span class="navbar-toggler-icon"></span>
     </button>
+    
     <!-- Menú superior -->
     ${menuSuperior.template}
     <!-- Menu usuario -->
     ${menuUsuario.template}
+    <h1 id="puntosPokemon">Puntos:</h1>
   </div>
 </nav>
 
-//Modals
 ${formEditarUsuario.template}
   `,
   script: async () => {
@@ -11677,11 +11679,14 @@ const footer = {
 const enrutador = {
   // Objeto (diccionario) con todas las rutas y su vista asociada
   rutas: {
-    home: __vitePreload(() => import("./home-d9f93dfd.js"), true ? [] : void 0, import.meta.url),
+    home: __vitePreload(() => import("./home-a9ed7e8a.js"), true ? ["./home-a9ed7e8a.js","./pokemon-c5a42bf4.js","./partidas-cb69a112.js"] : void 0, import.meta.url),
     // Usuarios
     // adminUsuarios: import('../vistas/admin/adminVista.js'),
-    registro: __vitePreload(() => import("./registroVista-2a17b39b.js"), true ? [] : void 0, import.meta.url),
-    login: __vitePreload(() => import("./loginVista-bbbb3f6a.js"), true ? [] : void 0, import.meta.url)
+    registro: __vitePreload(() => import("./registroVista-a7637c12.js"), true ? [] : void 0, import.meta.url),
+    login: __vitePreload(() => import("./loginVista-77bbdb9c.js"), true ? [] : void 0, import.meta.url),
+    perfiles: __vitePreload(() => import("./perfil-f468ea59.js"), true ? [] : void 0, import.meta.url),
+    pokemons: __vitePreload(() => import("./pokemons-6761b03b.js"), true ? ["./pokemons-6761b03b.js","./pokemon-c5a42bf4.js"] : void 0, import.meta.url),
+    partidas: __vitePreload(() => import("./partidas-b696ea64.js"), true ? ["./partidas-b696ea64.js","./partidas-cb69a112.js"] : void 0, import.meta.url)
     // Proyectos
     // proyectos: import('../vistas/proyectos/proyectosVistas'),
     // nuevoProyecto: import('../vistas/proyectos/nuevoProyectoVista.js'),
@@ -11737,4 +11742,10 @@ document.querySelector("#header").innerHTML = header.template;
 header.script();
 document.querySelector("#footer").innerHTML = footer.template;
 enrutador.observadorRutas();
-window.location = "#/home";
+window.location = "/MatarAlPokemonUf4/#/home";
+export {
+  Perfil as P,
+  User as U,
+  commonjsGlobal as c,
+  supabase as s
+};
