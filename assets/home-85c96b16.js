@@ -1,6 +1,6 @@
-import { P as PokemonS } from "./pokemon-c5a42bf4.js";
-import { c as commonjsGlobal, U as User } from "./main-9d020177.js";
-import { P as Partida } from "./partidas-cb69a112.js";
+import { P as PokemonS } from "./pokemon-2b79a725.js";
+import { c as commonjsGlobal, U as User } from "./main-82e46d3a.js";
+import { P as Partida } from "./partidas-a9156b06.js";
 class Pokemon {
   // Mapping de propiedades de la tabla perfiles
   constructor(idP = null, id = null, nombre = null, imagen = null, x = null, y = null, velocidad = null, tamaño = null, html = null, tipo = null) {
@@ -42,7 +42,7 @@ class Pokemon {
   async insertaPokemon() {
     await this.generaDatosAleatorios();
     await this.cargaDatosPokemon();
-    const html = `<div data-id="${this.idP}" data-nombre="${this.nombre}" data-tipo="${this.tipo}" data-imagen="${this.imagen}" style="width: ${this.tamaño}px; position: absolute; left: ${this.x}px; top: ${this.y}px;">
+    const html = `<div id="${this.idP}" data-id="${this.idP}" data-nombre="${this.nombre}" data-tipo="${this.tipo}" data-imagen="${this.imagen}" style="width: ${this.tamaño}px; position: absolute; left: ${this.x}px; top: ${this.y}px;">
     <img class="w-100" src="${this.imagen}" alt="Pokemon"> 
   </div>`;
     this.html = html;
@@ -59,7 +59,6 @@ class Pokemon {
     }
     const div = document.createElement("div");
     div.innerHTML = this.html;
-    console.log(div);
     document.querySelector("main").append(div);
     this.observadores(div);
   }
@@ -78,6 +77,23 @@ class Pokemon {
     div.addEventListener("click", (event) => {
       this.mataPokemon(div);
     });
+  }
+  moverse() {
+    const screenWidth = window.innerWidth;
+    if (this.x + 10 < screenWidth) {
+      this.x++;
+      this.actualizar();
+    }
+  }
+  actualizar() {
+    const htmlId = document.querySelector(`#${this.idP}`);
+    htmlId.remove();
+    const html = `<div data-id="${this.idP}" data-nombre="${this.nombre}" data-tipo="${this.tipo}" data-imagen="${this.imagen}" style="width: ${this.tamaño}px; position: absolute; left: ${this.x}px; top: ${this.y}px;">
+    <img class="w-100" src="${this.imagen}" alt="Pokemon"> 
+  </div>`;
+    this.html = html;
+    const div = document.createElement("div");
+    div.innerHTML = this.html;
   }
 }
 var sweetalert2_allExports = {};
@@ -2765,6 +2781,7 @@ const home = {
       const temporizador = setInterval(logica(), 1e4);
       setTimeout(function() {
         clearInterval(temporizador);
+        clearInterval(moverse);
         Swal.fire({
           title: "Se acabó!!",
           text: "Has hecho un total de " + window.puntos + ". ¿Deseas guardar la partida?",
@@ -2808,6 +2825,11 @@ const home = {
       }
       pokemons.forEach((pokemon) => {
         pokemon.insertaPokemon();
+      });
+    }
+    function moverse() {
+      pokemons.forEach((pokemon) => {
+        pokemon.moverse();
       });
     }
   }

@@ -11547,7 +11547,7 @@ const menuUsuario = {
         e.preventDefault();
         await User.logout();
         header.script();
-        window.location.href = "/#/home";
+        window.location.href = "/MatarAlPokemonUf4/#/home";
       });
     } else {
       const imgAvatar = "/assets/avatar.svg";
@@ -11679,14 +11679,14 @@ const footer = {
 const enrutador = {
   // Objeto (diccionario) con todas las rutas y su vista asociada
   rutas: {
-    home: __vitePreload(() => import("./home-a9ed7e8a.js"), true ? ["./home-a9ed7e8a.js","./pokemon-c5a42bf4.js","./partidas-cb69a112.js"] : void 0, import.meta.url),
+    home: __vitePreload(() => import("./home-85c96b16.js"), true ? ["./home-85c96b16.js","./pokemon-2b79a725.js","./partidas-a9156b06.js"] : void 0, import.meta.url),
     // Usuarios
     // adminUsuarios: import('../vistas/admin/adminVista.js'),
-    registro: __vitePreload(() => import("./registroVista-a7637c12.js"), true ? [] : void 0, import.meta.url),
-    login: __vitePreload(() => import("./loginVista-77bbdb9c.js"), true ? [] : void 0, import.meta.url),
-    perfiles: __vitePreload(() => import("./perfil-f468ea59.js"), true ? [] : void 0, import.meta.url),
-    pokemons: __vitePreload(() => import("./pokemons-6761b03b.js"), true ? ["./pokemons-6761b03b.js","./pokemon-c5a42bf4.js"] : void 0, import.meta.url),
-    partidas: __vitePreload(() => import("./partidas-b696ea64.js"), true ? ["./partidas-b696ea64.js","./partidas-cb69a112.js"] : void 0, import.meta.url)
+    registro: __vitePreload(() => import("./registroVista-010d7cbd.js"), true ? [] : void 0, import.meta.url),
+    login: __vitePreload(() => import("./loginVista-5c5681ad.js"), true ? [] : void 0, import.meta.url),
+    perfiles: __vitePreload(() => import("./perfil-793743fc.js"), true ? [] : void 0, import.meta.url),
+    pokemons: __vitePreload(() => import("./pokemons-271b37b0.js"), true ? ["./pokemons-271b37b0.js","./pokemon-2b79a725.js"] : void 0, import.meta.url),
+    partidas: __vitePreload(() => import("./partidas-6a4752b8.js"), true ? ["./partidas-6a4752b8.js","./partidas-a9156b06.js"] : void 0, import.meta.url)
     // Proyectos
     // proyectos: import('../vistas/proyectos/proyectosVistas'),
     // nuevoProyecto: import('../vistas/proyectos/nuevoProyectoVista.js'),

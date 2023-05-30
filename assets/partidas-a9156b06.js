@@ -1,4 +1,4 @@
-import { s as supabase } from "./main-9d020177.js";
+import { s as supabase } from "./main-82e46d3a.js";
 class Partida {
   // Mapping de propiedades de la tabla perfiles
   constructor(id = null, puntos = null, tiempo = null, usuario_id = null, created_at = null) {
