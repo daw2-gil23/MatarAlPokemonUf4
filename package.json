@@ -20,7 +20,10 @@
     "vite": "^4.1.0"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.8.0"
+    "@supabase/supabase-js": "^2.8.0",
+    "swal": "^0.1.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.9"
   },
   "eslintConfig": {
     "extends": [

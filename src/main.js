@@ -15,5 +15,7 @@ header.script()
 document.querySelector('#footer').innerHTML = footer.template
 
 enrutador.observadorRutas()
+// variable global
+
 // Cargamos la página home
 window.location = '#/home'

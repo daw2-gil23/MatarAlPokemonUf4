@@ -7,7 +7,10 @@ export const enrutador = {
     // Usuarios
     // adminUsuarios: import('../vistas/admin/adminVista.js'),
     registro: import('../vistas/registroVista.js'),
-    login: import('../vistas/loginVista.js')
+    login: import('../vistas/loginVista.js'),
+    perfiles: import('../vistas/perfil.js'),
+    pokemons: import('../vistas/pokemons.js'),
+    partidas: import('../vistas/partidas.js')
     // Proyectos
     // proyectos: import('../vistas/proyectos/proyectosVistas'),
     // nuevoProyecto: import('../vistas/proyectos/nuevoProyectoVista.js'),

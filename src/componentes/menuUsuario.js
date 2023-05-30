@@ -162,7 +162,7 @@ export const menuUsuario = {
       // Insertamos la foto del avatar
       document.querySelector('#imgAvatar').src = imgAvatar
       // Insertamos el email del usuario
-      document.querySelector('#emailUsuarioLogueado').innerHTML = perfilLogueado.email
+      document.querySelector('#emailUsuarioLogueado').innerHTML = perfilLogueado.nick
       // Insertamos el rol
       document.querySelector('#rolUsuarioLogueado').innerHTML = perfilLogueado.rol
 
@@ -174,8 +174,7 @@ export const menuUsuario = {
         // Cargamos la página home
         window.location.href = '/#/home'
       })
-    }
-    else{
+    } else {
       const imgAvatar = '/assets/avatar.svg'
       // Insertamos la foto del avatar
       document.querySelector('#imgAvatar').src = imgAvatar
@@ -190,4 +189,3 @@ export const menuUsuario = {
     })
   }
 }
-

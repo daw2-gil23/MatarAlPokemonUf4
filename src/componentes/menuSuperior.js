@@ -21,14 +21,14 @@ export const menuSuperior = {
       `,
       registrado: `
       <li class="nav-item">
-        <a class="nav-link" href="#/proyectos">Proyectos</a>
+        <a class="nav-link" href="#/perfiles">Perfiles</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#/recursos">Recursos</a>
+        <a class="nav-link" href="#/partidas">Partidas</a>
       </li>
       <li><hr /></li>
       <li class="nav-item">
-        <a class="nav-link" href="#/adminUsuarios">Admin</a>
+        <a class="nav-link" href="#/pokemons">Pokemons</a>
       </li>
       `,
       alumno: `
@@ -72,9 +72,8 @@ export const menuSuperior = {
       const rol = perfilLogueado.rol
       // Insertamos los items del menú según el rol
       document.querySelector('#menuSuperior').innerHTML = items[rol]
-    } else { 
-      document.querySelector('#menuSuperior').innerHTML = items['anonimo']
+    } else {
+      document.querySelector('#menuSuperior').innerHTML = items.anonimo
     }
   }
 }
-

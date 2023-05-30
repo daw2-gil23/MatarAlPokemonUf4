@@ -22,7 +22,7 @@ export const header = {
       <span class=""></span>
       Vanilla Games
     </a>
-    
+
     <button
       class="navbar-toggler ms-auto
       "
@@ -33,16 +33,18 @@ export const header = {
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
+    
     <span class="navbar-toggler-icon"></span>
     </button>
+    
     <!-- Menú superior -->
     ${menuSuperior.template}
     <!-- Menu usuario -->
     ${menuUsuario.template}
+    <h1 id="puntosPokemon">Puntos:</h1>
   </div>
 </nav>
 
-//Modals
 ${formEditarUsuario.template}
   `,
   script: async () => {
@@ -60,7 +62,7 @@ ${formEditarUsuario.template}
       }
     } catch (error) {
       console.log(error)
-      //alert('No he podido cargar el usuario logueado')
+      // alert('No he podido cargar el usuario logueado')
     }
   }
 }
